@@ -1453,6 +1453,11 @@ status_t Parcel::readNullableNativeHandleNoDup(const native_handle_t **handle,
         // writable memory, and the handle returned from here will actually be
         // used (rather than be ignored).
         if (embedded) {
+            if(!validateBufferParent(parent_buffer_handle, parent_offset)) {
+                ALOGE("Buffer in parent %zu offset %zu invalid.", parent_buffer_handle, parent_offset);
+                return BAD_VALUE;
+            }
+
             binder_buffer_object *parentBuffer =
                 reinterpret_cast<binder_buffer_object*>(mData + mObjects[parent_buffer_handle]);
 
