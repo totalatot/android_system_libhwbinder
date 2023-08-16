@@ -596,7 +596,7 @@ status_t Parcel::writeString16(const std::unique_ptr<String16>& str)
 
 status_t Parcel::writeString16(const String16& str)
 {
-    return writeString16(str.string(), str.size());
+    return writeString16(str.c_str(), str.size());
 }
 
 status_t Parcel::writeString16(const char16_t* str, size_t len)
