@@ -38,6 +38,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <mutex>
+
 #define DEFAULT_BINDER_VM_SIZE ((1 * 1024 * 1024) - sysconf(_SC_PAGE_SIZE) * 2)
 #define DEFAULT_MAX_BINDER_THREADS 0
 #define DEFAULT_ENABLE_ONEWAY_SPAM_DETECTION 1
