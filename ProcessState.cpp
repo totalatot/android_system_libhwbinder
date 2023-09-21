@@ -38,6 +38,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include <mutex>
+
 #define DEFAULT_BINDER_VM_SIZE ((1 * 1024 * 1024) - sysconf(_SC_PAGE_SIZE) * 2)
 #define DEFAULT_MAX_BINDER_THREADS 0
 #define DEFAULT_ENABLE_ONEWAY_SPAM_DETECTION 1
@@ -301,9 +303,9 @@ void ProcessState::spawnPooledThread(bool isMain)
 {
     if (mThreadPoolStarted) {
         String8 name = makeBinderThreadName();
-        ALOGV("Spawning new pooled thread, name=%s\n", name.string());
+        ALOGV("Spawning new pooled thread, name=%s\n", name.c_str());
         sp<Thread> t = new PoolThread(isMain);
-        t->run(name.string());
+        t->run(name.c_str());
     }
 }
 
@@ -358,7 +360,7 @@ size_t ProcessState::getMaxThreads() {
 }
 
 void ProcessState::giveThreadPoolName() {
-    androidSetThreadName( makeBinderThreadName().string() );
+    androidSetThreadName( makeBinderThreadName().c_str() );
 }
 
 static int open_driver()
