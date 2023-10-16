@@ -135,6 +135,7 @@ cc_library_static {
         "com.android.btservices",
         "com.android.media",
         "com.android.media.swcodec",
+        "com.android.nfcservices",
         "com.android.tethering",
     ],
     min_sdk_version: "29",
